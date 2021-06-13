@@ -10,14 +10,19 @@ wincap = WindowCapture()
 
 vision_crystal = Vision('crystal.png')
 
+vision_crystal.init_control_gui()
+
 loop_time= time()
 while(True):
 
     screenshot = wincap.get_screenshot()
 
-    rectangles = vision_crystal.find(screenshot, 0.6)
+    # pre-process the image
+    output_image = vision_crystal.apply_hs_filter(screenshot)
 
-    output_image = vision_crystal.draw_rectangles(screenshot, rectangles)
+    # rectangles = vision_crystal.find(screenshot, 0.6)
+
+    # output_image = vision_crystal.draw_rectangles(screenshot, rectangles)
 
     cv.imshow('Matches', output_image)
     # debug the loop rate
